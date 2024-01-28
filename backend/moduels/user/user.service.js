@@ -1,5 +1,5 @@
 const {userSignUpUserCheckRepo, userSignUpRepo, userPasswordUpdateRepo} = require("./user.repo");
-const {generateBcrypt} = require("../../util/lib");
+const {generateBcrypt, generateJwt} = require("../../util/lib");
 
 
 exports.userSignUpService = async (requestBody) => {
@@ -40,4 +40,14 @@ exports.userChangePasswordService = async (requestBody) => {
     }
     const password = await generateBcrypt().hash(requestBody.newPassword, 5)
     return userPasswordUpdateRepo(requestBody.email, password)
+};
+
+exports.userForgotPasswordService = async (requestBody) => {
+    const userExist = await userSignUpUserCheckRepo(requestBody.email)
+    if (!userExist) {
+        throw {message: "User does not exists"};
+    }
+    return generateJwt().sign({
+        data: userExist.email
+    }, 'secret', {expiresIn: '1h'});
 };
