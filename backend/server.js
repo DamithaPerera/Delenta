@@ -1,8 +1,9 @@
 // Requiring module
 const express = require('express');
 const connectDB = require('./database/db');
-const cors = require('cors');
+const cors = require("cors");
 
+const userRoute = require("./moduels/user/user.router");
 
 // Creating express object
 const app = express();
@@ -13,7 +14,7 @@ app.use(cors());
 app.use(express.json());
 
 
-// app.use('/v1/profile', profile);
+app.use('/v1/user', userRoute);
 
 // Server Setup
 const port = process.env.PORT || 3000;
