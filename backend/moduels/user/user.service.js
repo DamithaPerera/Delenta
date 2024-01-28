@@ -2,13 +2,14 @@ const {
     userSignUpUserCheckRepo,
     userSignUpRepo,
     userPasswordUpdateRepo,
-    userPasswordTokenUpdateRepo, userUpdateRepo, userDeleteRepo, getUserById
+    userPasswordTokenUpdateRepo, userUpdateRepo, userDeleteRepo, getUserById, getAllUsersRepo,
+    userSignUpUserEmailCheckRepo
 } = require("./user.repo");
 const {generateBcrypt, generateJwt} = require("../../util/lib");
 
 
 exports.userSignUpService = async (requestBody) => {
-    const userExist = await userSignUpUserCheckRepo(requestBody.email)
+    const userExist = await userSignUpUserEmailCheckRepo(requestBody.email)
     if (userExist) {
         throw {message: "User already exists"};
     }
@@ -76,4 +77,14 @@ exports.userDeleteService = async (userId) => {
         throw {message: "User does not exists"};
     }
     return userDeleteRepo(userId)
+};
+
+exports.userAllUsersService = async (limit = 10, page = 0) => {
+    // Ensure the limit is no greater than 10
+    limit = Math.min(parseInt(limit, 10), 10);
+
+    // Ensure page is a non-negative integer
+    page = Math.max(parseInt(page, 10), 0);
+
+    return getAllUsersRepo(limit, page);
 };

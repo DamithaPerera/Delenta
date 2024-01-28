@@ -2,7 +2,14 @@ const userModel = require('../../models/user')
 
 exports.userSignUpUserCheckRepo = async (email) => {
     return userModel.findOne({
-        email: email
+        email: email,
+        softDelete: false
+    })
+}
+
+exports.userSignUpUserEmailCheckRepo = async (email) => {
+    return userModel.findOne({
+        email: email,
     })
 }
 
@@ -39,4 +46,8 @@ exports.getUserById = async (userId) => {
     return userModel.findOne({
         id: userId
     });
+}
+
+exports.getAllUsersRepo = async (limit, page) => {
+    return userModel.find({}, {softDelete: false, password: 0, forgotPasswordToken: 0, _id: 0}).limit(limit).skip(page)
 }

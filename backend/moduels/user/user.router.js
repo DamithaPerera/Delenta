@@ -4,10 +4,11 @@ const {
     userSignUpController,
     userSignInController,
     userChangePasswordController,
-    userForgotPasswordController, userForgotPasswordChangeController, userUpdateController, userDeleteController
+    userForgotPasswordController, userForgotPasswordChangeController, userUpdateController, userDeleteController,
+    getAllUsersController
 } = require("./user.controller");
 
-// router.get('/:profileId', getAllComments);
+router.get('/all', getAllUsersController);
 // router.put('/:commentId', updateComment);
 router.post('/signUp', userSignUpController);
 router.post('/signIn', userSignInController);
