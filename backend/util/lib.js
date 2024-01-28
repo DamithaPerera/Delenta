@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const session = require('express-session')
 const jwt = require('jsonwebtoken');
+const Joi = require('joi');
 
 exports.generateUuid = () => {
     return uuidv4();
@@ -27,4 +28,8 @@ exports.generateSession = () => {
 
 exports.generateJwt = () => {
     return jwt;
+};
+
+exports.generateJoi = () => {
+    return Joi;
 };

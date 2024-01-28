@@ -14,8 +14,7 @@ exports.creatPostService = async (requestBody) => {
 };
 
 exports.getAllPostService = async (limit, page) => {
-    const skip = (page - 1) * limit;
-    return getAllPostRepo(limit, skip)
+    return getAllPostRepo(+limit, +page)
 };
 
 exports.updatePostService = async (requestBody) => {

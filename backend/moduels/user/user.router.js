@@ -11,15 +11,16 @@ const {
     getAllUsersController,
     getOneUserController
 } = require("./user.controller");
+const validation = require("./user.validation");
 
 router.get('/all', getAllUsersController);
 router.get('/:userId', getOneUserController);
-router.post('/signUp', userSignUpController);
-router.post('/signIn', userSignInController);
-router.post('/changePassword', userChangePasswordController);
-router.post('/forgotPassword', userForgotPasswordController);
-router.post('/forgotPassword/change', userForgotPasswordChangeController);
-router.put('/edit', userUpdateController);
+router.post('/signUp', validation.userSignInUp, userSignUpController);
+router.post('/signIn', validation.userSignInValidation, userSignInController);
+router.post('/changePassword', validation.userChangePassword, userChangePasswordController);
+router.post('/forgotPassword', validation.userForgotPassword, userForgotPasswordController);
+router.post('/forgotPassword/change', validation.userForgotPasswordChange, userForgotPasswordChangeController);
+router.put('/edit', validation.userUpdate, userUpdateController);
 router.delete('/delete/:userId', userDeleteController);
 
 
