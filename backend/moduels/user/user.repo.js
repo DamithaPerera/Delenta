@@ -21,3 +21,9 @@ exports.userPasswordTokenUpdateRepo = async (email, password) => {
         email: email
     }, {forgotPasswordToken: password});
 }
+
+exports.userUpdateRepo = async (requestBody) => {
+    return userModel.findOneAndUpdate({
+        email: requestBody.email
+    }, {name: requestBody.newName});
+}

@@ -2,7 +2,7 @@ const {
     userSignUpUserCheckRepo,
     userSignUpRepo,
     userPasswordUpdateRepo,
-    userPasswordTokenUpdateRepo
+    userPasswordTokenUpdateRepo, userUpdateRepo
 } = require("./user.repo");
 const {generateBcrypt, generateJwt} = require("../../util/lib");
 
@@ -64,17 +64,5 @@ exports.userForgotPasswordChangeService = async (requestBody) => {
     if (!userExist) {
         throw {message: "User does not exists"};
     }
-    const key = userExist.forgotPasswordToken
-    const token = generateJwt().verify(key, 'secret');
-    const password = await new Promise((resolve, reject) => {
-        generateBcrypt().hash(requestBody.newPassword, 5, (err, bcryptedPassword) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(bcryptedPassword);
-            }
-        });
-    });
-    await userPasswordUpdateRepo(requestBody.email, password)
-    return token
+    return userUpdateRepo(requestBody)
 };

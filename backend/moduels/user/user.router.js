@@ -4,7 +4,7 @@ const {
     userSignUpController,
     userSignInController,
     userChangePasswordController,
-    userForgotPasswordController, userForgotPasswordChangeController
+    userForgotPasswordController, userForgotPasswordChangeController, userUpdateController
 } = require("./user.controller");
 
 // router.get('/:profileId', getAllComments);
@@ -14,6 +14,7 @@ router.post('/signIn', userSignInController);
 router.post('/changePassword', userChangePasswordController);
 router.post('/forgotPassword', userForgotPasswordController);
 router.post('/forgotPassword/change', userForgotPasswordChangeController);
+router.put('/edit', userUpdateController);
 
 
 module.exports = router;
