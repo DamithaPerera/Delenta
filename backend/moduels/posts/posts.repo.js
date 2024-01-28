@@ -32,12 +32,71 @@ exports.getAllPostRepo = async () => {
             }
         },
         {
+            $lookup: {
+                from: 'comments',
+                localField: 'id',
+                foreignField: 'postId',
+                as: 'comments'
+            }
+        },
+        {
+            $unwind: {
+                path: '$comments',
+                preserveNullAndEmptyArrays: true
+            }
+        },
+        {
+            $lookup: {
+                from: 'users',
+                localField: 'comments.commentedUserId',
+                foreignField: 'id',
+                as: 'commentedUserDetails'
+            }
+        },
+        {
+            $unwind: {
+                path: '$commentedUserDetails',
+                preserveNullAndEmptyArrays: true
+            }
+        },
+        {
+            $group: {
+                _id: '$_id',
+                content: {$first: '$content'},
+                id: {$first: '$id'},
+                created_at: {$first: '$created_at'},
+                updated_at: {$first: '$updated_at'},
+                userDetails: {
+                    $first: {
+                        name: '$userDetails.name',
+                        email: '$userDetails.email'
+                    }
+                },
+                comments: {
+                    $push: {
+                        id: '$comments.id',
+                        comment: '$comments.comment',
+                        postId: '$comments.postId',
+                        commentedUserId: '$comments.commentedUserId',
+                        created_at: '$comments.created_at',
+                        updated_at: '$comments.updated_at',
+                        commentedUserDetails: {
+                            name: '$commentedUserDetails.name',
+                            email: '$commentedUserDetails.email'
+                        }
+                    }
+                }
+            }
+        },
+        {
             $project: {
-                id: 1,
+                _id: 1,
                 content: 1,
+                id: 1,
                 created_at: 1,
                 updated_at: 1,
-                userDetails: {name: 1, email: 1}
+                userDetails: 1,
+                comments: 1
             }
         }
     ]);
