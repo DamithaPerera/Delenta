@@ -88,3 +88,7 @@ exports.userAllUsersService = async (limit = 10, page = 0) => {
 
     return getAllUsersRepo(limit, page);
 };
+
+exports.getOneUserService = async (userId) => {
+    return getUserById(userId);
+};

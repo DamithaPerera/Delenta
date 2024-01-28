@@ -4,12 +4,16 @@ const {
     userSignUpController,
     userSignInController,
     userChangePasswordController,
-    userForgotPasswordController, userForgotPasswordChangeController, userUpdateController, userDeleteController,
-    getAllUsersController
+    userForgotPasswordController,
+    userForgotPasswordChangeController,
+    userUpdateController,
+    userDeleteController,
+    getAllUsersController,
+    getOneUserController
 } = require("./user.controller");
 
 router.get('/all', getAllUsersController);
-// router.put('/:commentId', updateComment);
+router.get('/:userId', getOneUserController);
 router.post('/signUp', userSignUpController);
 router.post('/signIn', userSignInController);
 router.post('/changePassword', userChangePasswordController);

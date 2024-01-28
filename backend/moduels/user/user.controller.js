@@ -2,7 +2,8 @@ const {
     userSignUpService,
     userSignInService,
     userChangePasswordService,
-    userForgotPasswordService, userForgotPasswordChangeService, userDeleteService, userAllUsersService
+    userForgotPasswordService, userForgotPasswordChangeService, userDeleteService, userAllUsersService,
+    getOneUserService
 } = require("./user.service");
 
 
@@ -115,6 +116,20 @@ exports.getAllUsersController = async (req, res, next) => {
         // admin logic
         const {limit, page} = req.query
         const response = await userAllUsersService(limit, page)
+        msg.message = "success"
+        msg.data = response
+        res.status(200).json(msg);
+    } catch (error) {
+        msg.message = "fail"
+        msg.data = error.message
+        res.status(400).json(msg);
+    }
+};
+
+exports.getOneUserController = async (req, res, next) => {
+    try {
+        const {userId} = req.params
+        const response = await getOneUserService(userId)
         msg.message = "success"
         msg.data = response
         res.status(200).json(msg);

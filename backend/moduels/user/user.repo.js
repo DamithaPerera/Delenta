@@ -45,7 +45,7 @@ exports.userDeleteRepo = async (userId) => {
 exports.getUserById = async (userId) => {
     return userModel.findOne({
         id: userId
-    });
+    }, {softDelete: false, password: 0, forgotPasswordToken: 0, _id: 0});
 }
 
 exports.getAllUsersRepo = async (limit, page) => {
