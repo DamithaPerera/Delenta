@@ -2,7 +2,7 @@ const {
     userSignUpUserCheckRepo,
     userSignUpRepo,
     userPasswordUpdateRepo,
-    userPasswordTokenUpdateRepo, userUpdateRepo
+    userPasswordTokenUpdateRepo, userUpdateRepo, userDeleteRepo, getUserById
 } = require("./user.repo");
 const {generateBcrypt, generateJwt} = require("../../util/lib");
 
@@ -27,6 +27,9 @@ exports.userSignUpService = async (requestBody) => {
 
 exports.userSignInService = async (requestBody, sessionData) => {
     const userExist = await userSignUpUserCheckRepo(requestBody.email)
+    if (!userExist) {
+        throw {message: "User does not exists"};
+    }
     const data = await generateBcrypt().compare(requestBody.password, userExist.password)
     if (!data) {
         throw {message: "Incorrect Password"};
@@ -65,4 +68,12 @@ exports.userForgotPasswordChangeService = async (requestBody) => {
         throw {message: "User does not exists"};
     }
     return userUpdateRepo(requestBody)
+};
+
+exports.userDeleteService = async (userId) => {
+    const userExist = await getUserById(userId)
+    if (!userExist) {
+        throw {message: "User does not exists"};
+    }
+    return userDeleteRepo(userId)
 };

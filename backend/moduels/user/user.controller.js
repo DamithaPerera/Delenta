@@ -2,7 +2,7 @@ const {
     userSignUpService,
     userSignInService,
     userChangePasswordService,
-    userForgotPasswordService, userForgotPasswordChangeService
+    userForgotPasswordService, userForgotPasswordChangeService, userDeleteService
 } = require("./user.service");
 
 
@@ -85,6 +85,21 @@ exports.userUpdateController = async (req, res, next) => {
     try {
         const requestBody = req.body
         const response = await userForgotPasswordChangeService(requestBody)
+        msg.message = "success"
+        msg.data = response
+        res.status(200).json(msg);
+    } catch (error) {
+        msg.message = "fail"
+        msg.data = error.message
+        res.status(400).json(msg);
+    }
+};
+
+exports.userDeleteController = async (req, res, next) => {
+    try {
+        // admin logic
+        const {userId} = req.params
+        const response = await userDeleteService(userId)
         msg.message = "success"
         msg.data = response
         res.status(200).json(msg);

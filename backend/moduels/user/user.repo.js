@@ -27,3 +27,16 @@ exports.userUpdateRepo = async (requestBody) => {
         email: requestBody.email
     }, {name: requestBody.newName});
 }
+
+// soft delete
+exports.userDeleteRepo = async (userId) => {
+    return userModel.findOneAndUpdate({
+        id: userId
+    }, {softDelete: true});
+}
+
+exports.getUserById = async (userId) => {
+    return userModel.findOne({
+        id: userId
+    });
+}
