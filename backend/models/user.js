@@ -1,5 +1,5 @@
-const {generateUuid} = require("../util/lib");
-const mongoose = require("mongoose");
+const {generateUuid, generateMongoose} = require("../util/lib");
+const mongoose = generateMongoose();
 
 
 const userSchema = new mongoose.Schema(
