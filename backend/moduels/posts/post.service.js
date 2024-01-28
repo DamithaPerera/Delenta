@@ -8,7 +8,8 @@ exports.creatPostService = async (requestBody) => {
     }
     const data = {
         cratedUserId: requestBody.userId,
-        content: requestBody.content
+        content: requestBody.content,
+        postedUserType: requestBody.userTpye
     }
     return createPostRepo(data)
 };

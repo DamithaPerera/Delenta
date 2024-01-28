@@ -21,6 +21,9 @@ const postSchema = new mongoose.Schema(
         bannedUserId: {
             type: String,
         },
+        postedUserType: {
+            type: String
+        }
     },
     {
         timestamps: {

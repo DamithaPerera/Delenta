@@ -1,4 +1,5 @@
 const validation = require("../../util/lib");
+const type = require("../../util/enum")
 
 exports.postCreateValidation = function (req, res, next) {
     const data = req.body;
@@ -7,7 +8,8 @@ exports.postCreateValidation = function (req, res, next) {
     const schema = validation.generateJoi().object().keys({
 
         content: validation.generateJoi().required(),
-        userId: validation.generateJoi().required()
+        userId: validation.generateJoi().optional(),
+        userType: validation.generateJoi().string().valid(...Object.values(type.userType)).required()
     });
     validation.generateJoi().validate(data, schema, (err, value) => {
         if (err) {
