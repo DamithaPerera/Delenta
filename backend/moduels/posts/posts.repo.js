@@ -13,7 +13,7 @@ exports.createPostRepo = async (body) => {
     return postModel.create(body)
 }
 
-exports.getAllPostRepo = async () => {
+exports.getAllPostRepo = async (limit, page) => {
     return postModel.aggregate([
         {
             $lookup: {
@@ -98,6 +98,12 @@ exports.getAllPostRepo = async () => {
                 userDetails: 1,
                 comments: 1
             }
+        },
+        {
+            $skip: page
+        },
+        {
+            $limit: limit
         }
     ]);
 }

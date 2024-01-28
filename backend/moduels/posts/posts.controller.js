@@ -18,7 +18,8 @@ exports.createPostController = async (req, res, next) => {
 
 exports.getAllPostController = async (req, res, next) => {
     try {
-        const response = await getAllPostService()
+        const {limit, page} = req.query
+        const response = await getAllPostService(limit, page)
         msg.message = "success"
         msg.data = response
         res.status(201).json(msg);
