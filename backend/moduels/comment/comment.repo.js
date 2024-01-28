@@ -18,3 +18,9 @@ exports.createCommentRepo = async (requestBody) => {
         commentedUserId: requestBody.commentedUserId
     })
 }
+
+exports.updateCommentRepo = async (requestBody) => {
+    return commentModel.findOneAndUpdate({
+        postId: requestBody.postId
+    }, {comment: requestBody.content})
+}
