@@ -55,3 +55,9 @@ exports.deletePostRepo = async (postId) => {
         id: postId
     })
 }
+
+exports.getAllBandedPostRepo = async (postId) => {
+    return postModel.find({
+        banned: true
+    })
+}

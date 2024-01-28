@@ -1,4 +1,4 @@
-const {checkUserRepo, createPostRepo, getAllPostRepo, updatePostRepo, deletePostRepo} = require("./posts.repo");
+const {checkUserRepo, createPostRepo, getAllPostRepo, updatePostRepo, deletePostRepo, getAllBandedPostRepo} = require("./posts.repo");
 
 
 exports.creatPostService = async (requestBody) => {
@@ -23,4 +23,8 @@ exports.updatePostService = async (requestBody) => {
 
 exports.deletePostService = async (postId) => {
     return deletePostRepo(postId)
+};
+
+exports.getAllBandedPostService = async () => {
+    return getAllBandedPostRepo()
 };
