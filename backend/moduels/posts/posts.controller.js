@@ -1,4 +1,4 @@
-const {creatPostService, getAllPostService, updatePostService} = require("./post.service");
+const {creatPostService, getAllPostService, updatePostService, deletePostService} = require("./post.service");
 
 let msg = {};
 
@@ -33,6 +33,20 @@ exports.updatePostController = async (req, res, next) => {
     try {
         const responseBody = req.body;
         const response = await updatePostService(responseBody)
+        msg.message = "success"
+        msg.data = response
+        res.status(201).json(msg);
+    } catch (error) {
+        msg.message = "fail"
+        msg.data = error.message
+        res.status(400).json(msg);
+    }
+};
+
+exports.deletePostController = async (req, res, next) => {
+    try {
+        const {postId} = req.params;
+        const response = await deletePostService(postId)
         msg.message = "success"
         msg.data = response
         res.status(201).json(msg);

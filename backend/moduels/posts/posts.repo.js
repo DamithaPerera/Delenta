@@ -48,3 +48,10 @@ exports.updatePostRepo = async (requestBody) => {
         id: requestBody.postId
     }, {content: requestBody.content})
 }
+
+
+exports.deletePostRepo = async (postId) => {
+    return postModel.deleteOne({
+        id: postId
+    })
+}
