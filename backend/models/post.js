@@ -14,7 +14,7 @@ const postSchema = new mongoose.Schema(
         cratedUserId: {
             type: String,
         },
-        delete: {
+        banned: {
             type: Boolean,
             default: false,
         },
@@ -28,4 +28,4 @@ const postSchema = new mongoose.Schema(
 );
 
 postSchema.set("autoIndex", true);
-module.exports = mongoose.model("User", postSchema);
+module.exports = mongoose.model("Post", postSchema);

@@ -3,7 +3,8 @@ const express = require('express');
 const connectDB = require('./database/db');
 const cors = require("cors");
 
-const userRoute = require("./moduels/user/user.router");
+const userRouter = require("./moduels/user/user.router");
+const postRouter = require("./moduels/posts/posts.router");
 const {generateSession} = require("./util/lib");
 
 // Creating express object
@@ -17,7 +18,8 @@ app.use(express.json());
 
 app.use(generateSession());
 
-app.use('/v1/user', userRoute);
+app.use('/v1/user', userRouter);
+app.use('/v1/post', postRouter);
 
 // Server Setup
 const port = process.env.PORT || 3000;

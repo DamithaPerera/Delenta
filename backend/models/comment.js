@@ -1,7 +1,7 @@
 const {generateUuid, generateMongoose} = require("../util/lib");
 const mongoose = generateMongoose();
 
-const postSchema = new mongoose.Schema(
+const commentSchema = new mongoose.Schema(
     {
         id: {
             type: String,
@@ -30,5 +30,5 @@ const postSchema = new mongoose.Schema(
     }
 );
 
-postSchema.set("autoIndex", true);
-module.exports = mongoose.model("User", postSchema);
+commentSchema.set("autoIndex", true);
+module.exports = mongoose.model("Comment", commentSchema);
