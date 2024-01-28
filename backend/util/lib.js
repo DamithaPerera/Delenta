@@ -1,6 +1,7 @@
 const {v4: uuidv4} = require("uuid");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+const session = require('express-session')
 
 exports.generateUuid = () => {
     return uuidv4();
@@ -12,4 +13,13 @@ exports.generateMongoose = () => {
 
 exports.generateBcrypt = () => {
     return bcrypt;
+};
+
+exports.generateSession = () => {
+    return session({
+        secret: 'my-secrete',
+        resave: false,
+        saveUninitialized: false,
+        cookie: { maxAge: 600000 },
+    });
 };

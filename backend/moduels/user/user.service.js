@@ -19,3 +19,16 @@ exports.userSignUpService = async (requestBody) => {
     requestBody.roleId = 'ddd'
     return userSignUpRepo(requestBody)
 };
+
+exports.userSignInService = async (requestBody, sessionData) => {
+    const userExist = await userSignUpUserCheckRepo(requestBody.email)
+    return new Promise((resolve, reject) => {
+        generateBcrypt().compare(requestBody.password, userExist.password, (err, status) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(sessionData)
+            }
+        });
+    });
+};
