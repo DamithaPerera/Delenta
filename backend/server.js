@@ -5,6 +5,7 @@ const cors = require("cors");
 
 const userRouter = require("./moduels/user/user.router");
 const postRouter = require("./moduels/posts/posts.router");
+const commentRouter = require("./moduels/comment/comment.router");
 const {generateSession} = require("./util/lib");
 
 // Creating express object
@@ -20,6 +21,7 @@ app.use(generateSession());
 
 app.use('/v1/user', userRouter);
 app.use('/v1/post', postRouter);
+app.use('/v1/comment', commentRouter);
 
 // Server Setup
 const port = process.env.PORT || 3000;
