@@ -25,6 +25,10 @@ const userSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
+        forgotPasswordToken: {
+            type: String,
+            required: false,
+        },
         softDelete: {
             type: Boolean,
             default: false,

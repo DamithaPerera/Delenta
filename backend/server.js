@@ -5,7 +5,6 @@ const cors = require("cors");
 
 const userRoute = require("./moduels/user/user.router");
 const {generateSession} = require("./util/lib");
-const session = require("express-session");
 
 // Creating express object
 const app = express();

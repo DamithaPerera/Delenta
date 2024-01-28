@@ -2,7 +2,7 @@ const {
     userSignUpService,
     userSignInService,
     userChangePasswordService,
-    userForgotPasswordService
+    userForgotPasswordService, userForgotPasswordChangeService
 } = require("./user.service");
 
 
@@ -56,6 +56,20 @@ exports.userForgotPasswordController = async (req, res, next) => {
     try {
         const requestBody = req.body
         const response = await userForgotPasswordService(requestBody)
+        msg.message = "success"
+        msg.data = response
+        res.status(200).json(msg);
+    } catch (error) {
+        msg.message = "fail"
+        msg.data = error.message
+        res.status(400).json(msg);
+    }
+};
+
+exports.userForgotPasswordChangeController = async (req, res, next) => {
+    try {
+        const requestBody = req.body
+        const response = await userForgotPasswordChangeService(requestBody)
         msg.message = "success"
         msg.data = response
         res.status(200).json(msg);
