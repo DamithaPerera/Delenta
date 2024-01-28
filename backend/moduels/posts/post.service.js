@@ -6,5 +6,9 @@ exports.creatPostService = async (requestBody) => {
     if (!userExist) {
         throw {message: "User does not exists"};
     }
-    return createPostRepo(requestBody)
+    const data = {
+        cratedUserId : requestBody.userId,
+        content: requestBody.content
+    }
+    return createPostRepo(data)
 };
