@@ -1,4 +1,4 @@
-const {checkUserRepo, createPostRepo, getAllPostRepo} = require("./posts.repo");
+const {checkUserRepo, createPostRepo, getAllPostRepo, updatePostRepo} = require("./posts.repo");
 
 
 exports.creatPostService = async (requestBody) => {
@@ -15,4 +15,8 @@ exports.creatPostService = async (requestBody) => {
 
 exports.getAllPostService = async () => {
     return getAllPostRepo()
+};
+
+exports.updatePostService = async (requestBody) => {
+    return updatePostRepo(requestBody)
 };

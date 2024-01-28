@@ -27,6 +27,11 @@ exports.getAllPostRepo = async () => {
             $unwind: '$userDetails'
         },
         {
+            $match: {
+                banned: false
+            }
+        },
+        {
             $project: {
                 id: 1,
                 content: 1,
@@ -36,4 +41,10 @@ exports.getAllPostRepo = async () => {
             }
         }
     ]);
+}
+
+exports.updatePostRepo = async (requestBody) => {
+    return postModel.findOneAndUpdate({
+        id: requestBody.postId
+    }, {content: requestBody.content})
 }
