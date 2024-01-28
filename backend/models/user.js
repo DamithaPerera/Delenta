@@ -1,0 +1,39 @@
+const {generateUuid} = require("../util/lib");
+const mongoose = require("mongoose");
+
+
+const userSchema = new mongoose.Schema(
+    {
+        id: {
+            type: String,
+            default: generateUuid
+        },
+        name: {
+            type: String,
+            maxlength: [50],
+            trim: false,
+        },
+        password: {
+            type: String,
+            required: false,
+        },
+        roleId: {
+            type: String,
+            required: true,
+        },
+        softDelete: {
+            type: Boolean,
+            default: false,
+            required: false,
+        },
+    },
+    {
+        timestamps: {
+            createdAt: "created_at",
+            updatedAt: "updated_at",
+        },
+    }
+);
+
+userSchema.set("autoIndex", true);
+module.exports = mongoose.model("User", userSchema);
