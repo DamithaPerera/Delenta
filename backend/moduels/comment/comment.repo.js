@@ -24,3 +24,9 @@ exports.updateCommentRepo = async (requestBody) => {
         postId: requestBody.postId
     }, {comment: requestBody.content})
 }
+
+exports.deleteCommentRepo = async (commentId) => {
+    return commentModel.deleteOne({
+        id: commentId
+    })
+}

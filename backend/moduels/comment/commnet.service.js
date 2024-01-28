@@ -1,4 +1,4 @@
-const {createCommentRepo, updateCommentRepo} = require("./comment.repo");
+const {createCommentRepo, updateCommentRepo, deleteCommentRepo} = require("./comment.repo");
 
 
 exports.createCommentService = async (requestBody) => {
@@ -7,4 +7,8 @@ exports.createCommentService = async (requestBody) => {
 
 exports.updateCommnetService = async (requestBody) => {
     return updateCommentRepo(requestBody)
+};
+
+exports.deleteCommentService = async (commentId) => {
+    return deleteCommentRepo(commentId)
 };
