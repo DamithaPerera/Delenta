@@ -1,4 +1,4 @@
-const {userSignUpUserCheckRepo, userSignUpRepo} = require("./user.repo");
+const {userSignUpUserCheckRepo, userSignUpRepo, userPasswordUpdateRepo} = require("./user.repo");
 const {generateBcrypt} = require("../../util/lib");
 
 
@@ -22,13 +22,22 @@ exports.userSignUpService = async (requestBody) => {
 
 exports.userSignInService = async (requestBody, sessionData) => {
     const userExist = await userSignUpUserCheckRepo(requestBody.email)
-    return new Promise((resolve, reject) => {
-        generateBcrypt().compare(requestBody.password, userExist.password, (err, status) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(sessionData)
-            }
-        });
-    });
+    const data = await generateBcrypt().compare(requestBody.password, userExist.password)
+    if (!data) {
+        throw {message: "Incorrect Password"};
+    }
+    return sessionData
+};
+
+exports.userChangePasswordService = async (requestBody) => {
+    const userExist = await userSignUpUserCheckRepo(requestBody.email)
+    if (!userExist) {
+        throw {message: "User does not exists"};
+    }
+    const dd = await generateBcrypt().compare(requestBody.oldPassword, userExist.password);
+    if (!dd) {
+        throw {message: "User old password is invalid"};
+    }
+    const password = await generateBcrypt().hash(requestBody.newPassword, 5)
+    return userPasswordUpdateRepo(requestBody.email, password)
 };

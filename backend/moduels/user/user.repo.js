@@ -9,3 +9,9 @@ exports.userSignUpUserCheckRepo = async (email) => {
 exports.userSignUpRepo = async (body) => {
     return userModel.create(body);
 }
+
+exports.userPasswordUpdateRepo = async (email, password) => {
+    return userModel.findOneAndUpdate({
+        email: email
+    }, {password: password});
+}
