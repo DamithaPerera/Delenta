@@ -19,7 +19,7 @@ async function down () {
   // Write migration here
     await userRole.deleteOne({roleType: roleTypes.SUPER_ADMIN});
     await userRole.deleteOne({roleType: roleTypes.ADMIN});
-    await userRole.deleteOne({roleType: roleTypes.SUPER_ADMIN});
+    await userRole.deleteOne({roleType: roleTypes.NORMAL_USER});
     await userRole.deleteOne({roleType: roleTypes.GUEST});
 }
 
