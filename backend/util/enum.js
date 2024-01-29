@@ -2,6 +2,7 @@ const roleTypes = {
     NORMAL_USER: "normalUser",
     ADMIN: "admin",
     SUPER_ADMIN: "superAdmin",
+    GUEST: "guest"
 };
 
 const userType = {

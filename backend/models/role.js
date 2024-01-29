@@ -1,6 +1,7 @@
 const {generateUuid} = require("../util/lib");
 const mongoose = require("mongoose");
 const roleTypes = require("../util/enum");
+const type = require("../util/enum");
 
 
 const roleSchema = new mongoose.Schema(
@@ -10,8 +11,8 @@ const roleSchema = new mongoose.Schema(
             default: generateUuid
         },
         roleType: {
-            type: Array,
-            enum: Object.values(roleTypes),
+            type: String,
+            enum: Object.values(type.roleTypes),
         }
     },
     {
@@ -23,4 +24,4 @@ const roleSchema = new mongoose.Schema(
 );
 
 roleSchema.set("autoIndex", true);
-module.exports = mongoose.model("User", roleSchema);
+module.exports = mongoose.model("Role", roleSchema);
